@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="model/icon.png" />
+    <title>任务进度</title>
+    <link rel="stylesheet" href="card.css" />
+  </head>
+  <body>
+    <div class="card" id="card">
+      <!-- 毛玻璃 + 背景只画在这一层，并且用 clip-path 把圆角外扩散的模糊切掉 -->
+      <div class="card-bg"></div>
+      <div class="card-body">
+        <div class="card-head">
+          <span class="state-dot" id="dot"></span>
+          <span class="state-name" id="state">空闲</span>
+        </div>
+        <div class="card-title" id="title">当前没有进行中的任务</div>
+        <div class="card-row">
+          <span class="k">已用时</span><span class="v" id="elapsed">—</span>
+          <span class="k">工具调用</span><span class="v" id="tools">—</span>
+        </div>
+        <div class="card-row">
+          <span class="k">上下文</span><span class="v" id="tokens">—</span>
+          <span class="k">来源</span><span class="v" id="source">—</span>
+        </div>
+        <div class="card-activity" id="activity">等待 Codex 开始工作…</div>
+        <div class="card-say" id="say"></div>
+        <div class="card-hint">拖动桌宠可以带着这张卡片走 · 双击桌宠打开设置</div>
+      </div>
+    </div>
+    <script src="card.js"></script>
+  </body>
+</html>

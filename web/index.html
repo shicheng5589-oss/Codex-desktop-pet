@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Codex 桌宠</title>
+    <link rel="icon" href="model/icon.png" />
+    <link rel="stylesheet" href="pet.css" />
+  </head>
+  <body>
+    <!-- 进度卡片：画在桌宠自己的网页里，宽度固定、高度由内容撑开，不改窗口尺寸 -->
+    <div id="card" class="card style-glass hidden">
+      <div class="card-bg"></div>
+      <div class="card-body">
+        <div class="card-head">
+          <span class="card-dot" id="card-dot"></span>
+          <span class="card-state" id="card-state">空闲</span>
+        </div>
+        <div class="card-title" id="card-title">当前没有进行中的任务</div>
+        <div class="card-row">
+          <span class="k">已用时</span><span class="v" id="card-elapsed">—</span>
+          <span class="k">工具调用</span><span class="v" id="card-tools">—</span>
+        </div>
+        <div class="card-row">
+          <span class="k">上下文</span><span class="v" id="card-tokens">—</span>
+          <span class="k">来源</span><span class="v" id="card-source">—</span>
+        </div>
+        <div class="card-activity" id="card-activity">等待 Codex 开始工作…</div>
+        <div class="card-say" id="card-say"></div>
+      </div>
+    </div>
+
+    <div id="chip" class="chip hidden">
+      <span class="chip-dot" id="chip-dot"></span>
+      <span id="chip-text">空闲</span>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- 部分打包库会探测 Node 的 process/global，浏览器里先给个壳 -->
+    <script>
+      window.process = window.process || { env: {}, platform: "browser", version: "" };
+      window.global = window.global || window;
+    </script>
+    <script src="lib/pixi-v6.min.js"></script>
+    <script src="lib/live2dcubismcore.min.js"></script>
+    <script src="lib/pixi-live2d-display-cubism4.min.js"></script>
+    <script src="pet.js"></script>
+  </body>
+</html>

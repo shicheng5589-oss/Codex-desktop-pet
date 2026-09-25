@@ -1,0 +1,15 @@
+# 运行桌宠需要的 Python 包（Windows）
+# 说明：
+#   * 仓库里自带的 vendor/ 目录**已经包含**下面这些包，正常情况下不用装；
+#     只有当你删掉了 vendor/（或用 .gitignore 排除了它）时，才需要 pip 安装。
+#   * 必须用 64 位 CPython 3.12：vendor/ 里的二进制是按 3.12 编的
+#     （_cffi_backend.cp312-win_amd64.pyd），Python 版本不一致会报 DLL 加载失败。
+
+pythonnet==3.1.0
+clr-loader==0.3.1
+cffi==2.1.1
+pycparser==3.0
+typing_extensions==4.16.0
+
+# 只有 restore_props.py / 恢复道具动画.cmd（恢复模型里的道具动画）需要：
+pillow==12.3.0

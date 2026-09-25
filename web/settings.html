@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="model/icon.png" />
+    <title>Codex 桌宠 · 设置</title>
+    <link rel="stylesheet" href="settings.css" />
+  </head>
+  <body>
+    <header class="head">
+      <img src="model/icon.png" alt="" class="logo" />
+      <div>
+        <h1>Codex 桌宠</h1>
+        <p class="sub">形象会跟着 Codex 的实时状态变化：思考 / 执行 / 等待 / 完成…</p>
+      </div>
+    </header>
+
+    <main>
+      <div class="now" id="now">桌宠此刻：—</div>
+      <section class="card">
+        <div class="card-head">
+          <h2>外观</h2>
+          <button type="button" class="icon-btn" data-reset="appearance" title="把「外观」这一栏恢复默认（改完记得点「保存并应用」）" aria-label="恢复默认">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.3 12a8.3 8.3 0 1 1-2.44-5.88" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><path d="M20.5 3.6v5.1h-5.1" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <label class="row">
+          <span class="label">桌宠大小 <small id="scale-hint" class="hint-inline"></small></span>
+          <input type="range" id="scale" min="0.1" max="2" step="0.01" />
+          <output id="scale-out" class="value"></output>
+        </label>
+        <label class="row">
+          <span class="label">不透明度</span>
+          <input type="range" id="opacity" min="0.4" max="1" step="0.05" />
+          <output id="opacity-out" class="value"></output>
+        </label>
+        <label class="row">
+          <span class="label">视线跟随范围</span>
+          <input type="range" id="gazeRange" min="0" max="1200" step="20" />
+          <output id="gaze-out" class="value"></output>
+        </label>
+        <label class="row switch">
+          <span class="label">自动切换表情（关闭后只保留状态对应表情）</span>
+          <input type="checkbox" id="autoExpression" />
+        </label>
+        <label class="row switch">
+          <span class="label">自动播放动作 / 闲置表演</span>
+          <input type="checkbox" id="autoMotion" />
+        </label>
+        <label class="row switch">
+          <span class="label">始终显示在最上层</span>
+          <input type="checkbox" id="alwaysOnTop" />
+        </label>
+        <label class="row switch">
+          <span class="label">显示状态小标签</span>
+          <input type="checkbox" id="showChip" />
+        </label>
+        <label class="row">
+          <span class="label">渲染帧率上限 <small id="fps-hint" class="hint-inline"></small></span>
+          <select id="fpsLimit">
+            <option value="30">30 帧（最省电）</option>
+            <option value="60">60 帧（默认）</option>
+            <option value="90">90 帧</option>
+            <option value="120">120 帧</option>
+            <option value="144">144 帧</option>
+            <option value="165">165 帧</option>
+            <option value="240">240 帧</option>
+            <option value="0">不限制（跑满屏幕刷新率）</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>行为</h2>
+          <button type="button" class="icon-btn" data-reset="behavior" title="把「行为」这一栏恢复默认（改完记得点「保存并应用」）" aria-label="恢复默认">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.3 12a8.3 8.3 0 1 1-2.44-5.88" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><path d="M20.5 3.6v5.1h-5.1" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <label class="row">
+          <span class="label">进度卡片外观（可来回切着对比）</span>
+          <select id="cardStyle">
+            <option value="glass">半透明 + 模糊浮层</option>
+            <option value="solid">实色卡片</option>
+          </select>
+        </label>
+        <label class="row">
+          <span class="label">卡片与桌宠的间距</span>
+          <input type="range" id="cardGap" min="-20" max="60" step="1" />
+          <output id="card-gap-out" class="value"></output>
+        </label>
+        <label class="row switch">
+          <span class="label">卡片跟着桌宠一起放大（字号/内边距）</span>
+          <input type="checkbox" id="cardScaleWithPet" />
+        </label>
+        <label class="row switch">
+          <span class="label">跟随虚拟桌面（切桌面时它也跟着过去）</span>
+          <input type="checkbox" id="followDesktop" />
+        </label>
+        <label class="row switch">
+          <span class="label hot">开机自动启动</span>
+          <input type="checkbox" id="autostart" />
+        </label>
+        <label class="row switch">
+          <span class="label hot">跟随 Codex 启动（Codex 打开时自动拉起桌宠）</span>
+          <input type="checkbox" id="followCodex" />
+        </label>
+        <label class="row switch">
+          <span class="label">鼠标滚轮缩放桌宠（关掉则只能用上面的滑条缩放）</span>
+          <input type="checkbox" id="wheelZoom" />
+        </label>
+        <label class="row switch">
+          <span class="label">卡片毛玻璃（个别显卡上圆角会有残留，可关掉只保留半透明）</span>
+          <input type="checkbox" id="cardBlur" />
+        </label>
+        <div class="buttons">
+          <button class="btn" id="act-panel">展开 / 收起进度卡片</button>
+          <button class="btn" id="act-motion">让它做个动作</button>
+          <button class="btn" id="act-reset">回到右下角</button>
+          <button class="btn" id="act-codex">切到 Codex 窗口</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>底部按钮与功能方案</h2>
+          <button type="button" class="icon-btn" data-reset="bottom" title="把「底部按钮与功能方案」这一栏恢复默认（改完记得点「保存并应用」）" aria-label="恢复默认">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.3 12a8.3 8.3 0 1 1-2.44-5.88" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><path d="M20.5 3.6v5.1h-5.1" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <p class="hint bottom-hint">
+          <b>撤回 / 铅笔 / 橡皮擦</b> 支持独立配置：每个按钮的<b>单击、右键</b>都可选择功能。
+          每次触发都会先弹出「确认 / 取消」，确认后才执行；任何一项都能选「无功能」。
+        </p>
+        <label class="row">
+          <span class="label">功能方案</span>
+          <select id="bottomButtonsMode">
+            <option value="assistant">方案一：桌宠编辑 / 恢复 / 清理</option>
+            <option value="codex">方案二：Codex 联动</option>
+          </select>
+        </label>
+        <div class="grid" id="bottom-button-actions"></div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>状态对应的表情</h2>
+          <button type="button" class="icon-btn" data-reset="states" title="把「状态对应的表情」这一栏恢复默认（改完记得点「保存并应用」）" aria-label="恢复默认">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.3 12a8.3 8.3 0 1 1-2.44-5.88" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><path d="M20.5 3.6v5.1h-5.1" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <p class="hint">模型里一共找到 <b id="expr-count">0</b> 个表情，按喜好改就行，改完立即生效。</p>
+        <div class="grid" id="state-grid"></div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>表情白名单</h2>
+          <button type="button" class="icon-btn" data-reset="whitelist" title="把「表情白名单」这一栏恢复默认（改完记得点「保存并应用」）" aria-label="恢复默认">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.3 12a8.3 8.3 0 1 1-2.44-5.88" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><path d="M20.5 3.6v5.1h-5.1" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <p class="hint">
+          不想要的表情（比如那些"道具 / 贴纸"类，像 <b>晕晕</b>、<b>吐魂</b>、各种贴纸）
+          在这里取消勾选，就再也不会出现了；状态映射和随机心情都会跳过它们。
+        </p>
+        <div class="motion-list" id="expression-list"></div>
+        <div class="buttons">
+          <button class="btn ghost" id="expr-all">全部允许</button>
+          <button class="btn ghost" id="expr-none">一个都不换</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>动作与表情播放</h2>
+          <button type="button" class="icon-btn" data-reset="motions" title="把「动作与表情播放」这一栏恢复默认（改完记得点「保存并应用」）" aria-label="恢复默认">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.3 12a8.3 8.3 0 1 1-2.44-5.88" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><path d="M20.5 3.6v5.1h-5.1" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <p class="hint">
+          模型里有 <b id="motion-count">0</b> 个动作、<b id="expr-total">0</b> 个表情。
+          动作若一直循环（比如那段 4 秒的闲置表演），可以把它们单独关掉。
+        </p>
+        <label class="row">
+          <span class="label">表情最短保持时间（到点后才允许考虑切换）</span>
+          <input type="range" id="moodSeconds" min="2" max="60" step="1" />
+          <output id="mood-out" class="value"></output>
+        </label>
+        <label class="row">
+          <span class="label">到点后真的换表情的概率</span>
+          <input type="range" id="moodChance" min="0" max="100" step="5" />
+          <output id="mood-chance-out" class="value"></output>
+        </label>
+        <label class="row">
+          <span class="label">顺带做个动作的概率</span>
+          <input type="range" id="motionChance" min="0" max="100" step="5" />
+          <output id="motion-chance-out" class="value"></output>
+        </label>
+        <label class="row">
+          <span class="label">闲置动作间隔（0 = 不做；关闭上方“自动播放动作”后完全静止）</span>
+          <input type="range" id="idleMotionSeconds" min="0" max="120" step="1" />
+          <output id="idle-out" class="value"></output>
+        </label>
+        <div class="motion-list" id="motion-list"></div>
+        <div class="buttons">
+          <button class="btn ghost" id="motion-all">全选动作</button>
+          <button class="btn ghost" id="motion-none">全部关掉</button>
+          <button class="btn" id="motion-calm">让它安静点（只保留呼吸）</button>
+        </div>
+        <label class="row">
+          <span class="label">动作播放后至少间隔（秒）</span>
+          <input type="range" id="motionGap" min="0" max="60" step="1" />
+          <output id="motion-gap-out" class="value"></output>
+        </label>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>排查</h2>
+          <button type="button" class="icon-btn" data-reset="debug" title="把「排查」这一栏恢复默认（改完记得点「保存并应用」）" aria-label="恢复默认">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.3 12a8.3 8.3 0 1 1-2.44-5.88" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><path d="M20.5 3.6v5.1h-5.1" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <label class="row switch">
+          <span class="label">记录鼠标事件到日志（只在排查问题时需要，默认关）</span>
+          <input type="checkbox" id="verboseLog" />
+        </label>
+        <div class="buttons">
+          <button class="btn ghost" id="act-log">打开运行日志</button>
+          <button class="btn ghost" id="act-clear-log">清空日志</button>
+          <button class="btn ghost" id="act-folder">打开程序文件夹</button>
+          <button class="btn ghost" id="act-reload">重新载入形象</button>
+          <button class="btn danger" id="act-quit">退出桌宠</button>
+        </div>
+        <p class="hint" id="paths"></p>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <span id="status" class="status"></span>
+      <span id="dirty" class="dirty"></span>
+      <span class="spacer"></span>
+      <button class="btn ghost" id="act-revert">放弃更改</button>
+      <button class="btn" id="act-save">保存并应用</button>
+      <button class="btn ghost" id="act-defaults">恢复默认</button>
+    </footer>
+
+    <script src="settings.js"></script>
+  </body>
+</html>

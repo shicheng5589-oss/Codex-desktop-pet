@@ -1,0 +1,36 @@
+MIT License
+
+Copyright (c) 2026 <在这里写上你的名字或 GitHub 用户名>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+--------------------------------------------------------------------------
+注意：上面这份 MIT 只覆盖本仓库**自己写的代码**（run.py、codex_state.py、
+settings_store.py、restore_props.py、web/ 下的 html/js/css、各种启动脚本）。
+
+下面这些**不包括**在 MIT 里，它们各有各的授权，使用前请阅读 THIRD-PARTY.md：
+
+  * web/model/                     —— Live2D 模型（角色形象、贴图、动作、表情）
+  * web/lib/live2dcubismcore.min.js —— Live2D Cubism Core（Live2D 公司专有授权）
+  * web/lib/pixi*.js               —— pixi.js / pixi-live2d-display（MIT）
+  * vendor/                        —— pythonnet、pywebview、Pillow 等第三方包
+  * Microsoft WebView2 相关 DLL    —— 微软的许可条款
+
+如果你不是这个模型的作者，**请先取得模型作者的授权**再发布本仓库，
+或者把 web/model/ 换成你自己的/可再分发的模型。

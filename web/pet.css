@@ -1,0 +1,381 @@
+:root {
+  --ink: #eef3ff;
+  --muted: #9aa7bd;
+  --card: rgba(18, 22, 33, 0.88);
+  --edge: rgba(255, 255, 255, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+  font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+  color: var(--ink);
+  cursor: default;
+  user-select: none;
+}
+
+canvas {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* ---------- 进度卡片（画在桌宠网页里）----------
+   注意：桌宠窗口是"色键透明"，半透明像素会和键色串色，
+   所以卡片底色必须是实色；只有它**外面**是真正的透明像素（桌面直接透出来）。
+   圆角外面用 clip-path 强制切掉，杜绝直角残留。 */
+.card {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 10px;              /* 实际位置由 JS 贴着"角色头顶"算出来 */
+  height: auto;              /* 高度由内容撑开（标题、数据行、最近一句话） */
+  z-index: 3;
+  animation: cardIn 0.16s ease-out;
+  /* 跟着桌宠缩放时，字号/间距一起放大，卡片才不会显得"被限制住" */
+  --card-scale: 1;
+}
+
+.card-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  clip-path: inset(0 round 16px);
+  -webkit-clip-path: inset(0 round 16px);
+}
+
+/* —— 最初版本的外观：半透明 + 模糊的玻璃浮层（和第一版参数一致）—— */
+.card.style-glass .card-bg {
+  background: rgba(18, 22, 33, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* —— 简洁实色卡片（不会和窗口键色串色的那版）—— */
+.card.style-solid .card-bg {
+  background: #1b1f28;
+  background-image: linear-gradient(180deg, #262c38 0%, #1a1e27 100%);
+  border: 1px solid #39404e;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.card-body {
+  position: relative;
+  padding: calc(var(--card-scale) * 16px) calc(var(--card-scale) * 18px) calc(var(--card-scale) * 14px);
+}
+
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--card-scale) * 8px);
+  margin-bottom: calc(var(--card-scale) * 7px);
+}
+
+.card-dot {
+  width: calc(var(--card-scale) * 9px);
+  height: calc(var(--card-scale) * 9px);
+  border-radius: 50%;
+  background: #7f8c9b;
+}
+
+.card-state {
+  font-weight: 600;
+  font-size: calc(var(--card-scale) * 13.5px);
+}
+
+.card-title {
+  font-size: calc(var(--card-scale) * 13.5px);
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: calc(var(--card-scale) * 9px);
+  word-break: break-word;
+}
+
+.card-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto 1fr;
+  gap: calc(var(--card-scale) * 4px) calc(var(--card-scale) * 8px);
+  align-items: baseline;
+  margin-bottom: calc(var(--card-scale) * 4px);
+}
+
+.card-row .k {
+  color: var(--muted);
+  font-size: calc(var(--card-scale) * 11.5px);
+}
+
+.card-row .v {
+  font-variant-numeric: tabular-nums;
+  font-size: calc(var(--card-scale) * 12px);
+}
+
+.card-activity {
+  margin-top: calc(var(--card-scale) * 8px);
+  padding: calc(var(--card-scale) * 7px) calc(var(--card-scale) * 9px);
+  border-radius: calc(var(--card-scale) * 9px);
+  background: #232833;
+  color: #cfd8ea;
+  font-size: calc(var(--card-scale) * 12px);
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.card-say {
+  margin-top: calc(var(--card-scale) * 8px);
+  color: #9aa7bd;
+  font-size: calc(var(--card-scale) * 11.5px);
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+/* 桌宠窗口比较小的时候：只留状态和任务名，避免卡片把角色挤没了 */
+.card.compact .card-body {
+  padding: calc(var(--card-scale) * 10px) calc(var(--card-scale) * 12px) calc(var(--card-scale) * 9px);
+}
+
+.card.compact .card-row,
+.card.compact .card-activity,
+.card.compact .card-say {
+  display: none;
+}
+
+.card.compact .card-title {
+  margin-bottom: 0;
+  font-size: calc(var(--card-scale) * 12.5px);
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ---------- state chip ---------- */
+.chip {
+  position: absolute;
+  left: 50%;
+  bottom: 6px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 13px 5px 10px;
+  border-radius: 999px;
+  /* 注意：桌宠窗口是"色键透明"，半透明像素会和色键串色，
+     所以这里用接近"半透明叠在桌面"的实色 + 细描边，看起来一样通透。 */
+  background: #23262f;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.chip-dot,
+.state-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #7f8c9b;
+  flex: 0 0 auto;
+}
+
+.chip.thinking .chip-dot {
+  animation: pulse 1.1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(0.75);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+/* ---------- progress panel ---------- */
+.panel {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 8px;
+  padding: 12px 13px 11px;
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--edge);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  font-size: 12.5px;
+  animation: rise 0.16s ease-out;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+
+.state-name {
+  font-weight: 600;
+  font-size: 13.5px;
+}
+
+.panel-spacer {
+  flex: 1;
+}
+
+.icon-btn {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 6px;
+}
+
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: #fff;
+}
+
+.panel-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 2px 0 9px;
+  word-break: break-word;
+}
+
+.panel-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto 1fr;
+  gap: 4px 8px;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+.panel-row .k {
+  color: var(--muted);
+  font-size: 11.5px;
+}
+
+.panel-row .v {
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+}
+
+.panel-activity {
+  margin-top: 8px;
+  padding: 7px 9px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #cfd8ea;
+  font-size: 12px;
+  line-height: 1.45;
+  max-height: 54px;
+  overflow: hidden;
+}
+
+.panel-say {
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.5;
+  max-height: 46px;
+  overflow: hidden;
+}
+
+.panel-hint {
+  margin-top: 9px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  color: var(--muted);
+  font-size: 11.5px;
+  text-align: center;
+}
+
+.menu {
+  position: absolute;
+  right: 10px;
+  bottom: 44px;
+  min-width: 140px;
+  padding: 5px;
+  border-radius: 11px;
+  background: rgba(22, 26, 38, 0.97);
+  border: 1px solid var(--edge);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+  z-index: 5;
+}
+
+.menu-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 12.5px;
+  padding: 7px 9px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.menu-item.danger {
+  color: #ff9b9b;
+}
+
+.toast {
+  position: absolute;
+  left: 50%;
+  bottom: 42px;
+  transform: translateX(-50%);
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #1b1e26;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  font-size: 12px;
+  white-space: nowrap;
+}

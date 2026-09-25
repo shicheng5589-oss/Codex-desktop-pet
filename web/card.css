@@ -1,0 +1,147 @@
+:root {
+  color-scheme: dark;
+  --ink: #eef3ff;
+  --muted: #9aa7bd;
+  --card: #12161f;
+  --edge: rgba(255, 255, 255, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: transparent;     /* 让 Windows 亚克力（毛玻璃）透上来 */
+  overflow: hidden;
+  font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+  color: var(--ink);
+  user-select: none;
+  cursor: default;
+}
+
+.card {
+  position: absolute;
+  inset: 0;
+  background: transparent;     /* 最外层不画任何东西，避免直角溢出 */
+}
+
+/* 只有这一层有背景 + 模糊，并且强制按圆角裁剪（backdrop-filter 会往外扩，必须切） */
+.card-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: rgba(25, 28, 36, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  /* 外阴影会画到圆角之外（在透明窗口上就是一圈方形底色），所以改成内高光 */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  clip-path: inset(0 round 20px);
+  -webkit-clip-path: inset(0 round 20px);
+}
+
+.card-body {
+  position: absolute;
+  inset: 0;
+  padding: 18px 20px 16px;
+}
+
+/* 紧凑模式：桌宠缩得很小的时候用，只留最关键的两行 */
+body.compact .card-body {
+  padding: 12px 16px 11px;
+}
+
+body.compact .card-activity,
+body.compact .card-say,
+body.compact .card-hint,
+body.compact .card-row {
+  display: none;
+}
+
+body.compact .card-title {
+  margin-bottom: 0;
+  font-size: 12.5px;
+}
+
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+
+.state-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #7f8c9b;
+}
+
+.state-name {
+  font-weight: 600;
+  font-size: 13.5px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.card-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  margin-bottom: 9px;
+  word-break: break-word;
+}
+
+.card-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto 1fr;
+  gap: 4px 8px;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+.card-row .k {
+  color: var(--muted);
+  font-size: 11.5px;
+}
+
+.card-row .v {
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+}
+
+.card-activity {
+  margin-top: 8px;
+  padding: 7px 9px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #cfd8ea;
+  font-size: 12px;
+  line-height: 1.45;
+  max-height: 52px;
+  overflow: hidden;
+}
+
+.card-say {
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.5;
+  max-height: 44px;
+  overflow: hidden;
+}
+
+.card-hint {
+  margin-top: 9px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  color: var(--muted);
+  font-size: 11.5px;
+  text-align: center;
+}
