@@ -7,7 +7,7 @@
 
 > 状态来源是 Codex 自己写在 `~/.codex/` 里的本地记录，**只读、不联网**。
 
-![桌宠](docs/images/pet.png)
+<p align="center"><img src="docs/images/pet.png" alt="Codex 桌宠" width="220"></p>
 
 ---
 
@@ -119,6 +119,12 @@ Python 依赖（`pythonnet` 等）**已经放在 `vendor/` 里**，开箱即用�
 
 > 「开机自动启动」和「跟随 Codex 启动」这两行字是**微红色**的，提醒你注意：
 > 前者会往启动文件夹放快捷方式，后者会常驻一个每 4 秒轮询的隐藏 PowerShell。
+
+<img src="docs/images/settings.png" alt="设置窗口的「外观」栏（最后一行是渲染帧率上限）" width="640">
+
+底部三个图标的配置长这样（每个按钮的「单击 / 右键」各配一个功能）：
+
+<img src="docs/images/settings-bottom-buttons.png" alt="底部按钮与功能方案" width="720">
 
 ---
 
