@@ -343,12 +343,13 @@ CodexPet/
 
 ## 第三方与许可
 
-* 本仓库**自己的代码**：MIT（见 `LICENSE`）。
-* **Live2D Cubism Core**（`web/lib/live2dcubismcore.min.js`）：Live2D 公司专有授权，随程序分发可以，
-  但商用/再分发请读官方条款。
+* **本仓库自己的代码**：MIT（见 `LICENSE`）。
+* **Live2D Cubism Core** (`web/lib/live2dcubismcore.min.js`)：Live2D 公司专有授权，随程序分发可以，但商用/再分发请读官方条款。
 * **pixi.js / pixi-live2d-display**：MIT。
-* **pythonnet / pywebview / Pillow / bottle / cffi 等**（`vendor/`）：各自的 MIT / BSD 许可，
-  原文都在 `vendor/*.dist-info/licenses/`。
-* **`web/model/` 里的 Live2D 模型**：**授权独立于代码**，请以模型作者的要求为准 —— 详见 `THIRD-PARTY.md`。
+* **pythonnet / pywebview / Pillow / bottle / cffi 等** (`vendor/`)：各自的 MIT / BSD 许可，原文都在 `vendor/*.dist-info/licenses/`。
+* **`web/model/` 里的 Live2D 模型**：**授权独立于代码**。
+  * 本模型由 B站 UP主 [氵六青](https://space.bilibili.com/11272072) 与 [茶坤不接了](https://space.bilibili.com/2505395) 共同制作并免费分享。
+  * **已获得原作者明确授权**，用于本开源项目（仅限非商业个人学习与二创分享）。
+  * 模型版权归上述原作者共同所有，**严禁倒卖或商用**。详细授权条款请查看 `web/model/README.md` 与 `THIRD-PARTY.md`。
 
-如果你要 fork 或发布，请把 `LICENSE` 里的版权行换成你的名字，并确认模型是否可以一起发布。
+* **如果你 Fork 本仓库**：请把 `LICENSE` 里的版权换成你的名字，并**务必保留**上述关于 Live2D 模型和第三方库的来源声明。
